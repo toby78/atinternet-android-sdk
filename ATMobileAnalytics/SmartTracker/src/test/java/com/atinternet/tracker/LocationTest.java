@@ -50,7 +50,7 @@ public class LocationTest extends AbstractTestClass {
 
     @Test
     public void setEventTest() {
-        location.setLatitude(87876576.87787).setLongitude(3786765.915656).setEvent();
+        location.setLatitude(87876576.87787).setLongitude(3786765.915656).setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());

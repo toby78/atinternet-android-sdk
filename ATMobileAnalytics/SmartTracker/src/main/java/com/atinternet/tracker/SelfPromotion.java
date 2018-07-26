@@ -137,7 +137,7 @@ public class SelfPromotion extends OnAppAd {
     }
 
     @Override
-    void setEvent() {
+    void setParams() {
         String selfPromotion = String.format(SELF_PROMOTION_FORMAT,
                 adId,
                 format != null ? format : "",
@@ -170,7 +170,7 @@ public class SelfPromotion extends OnAppAd {
 
         if (customObjectsMap != null) {
             for (CustomObject co : customObjectsMap.values()) {
-                co.setEvent();
+                co.setParams();
             }
         }
 

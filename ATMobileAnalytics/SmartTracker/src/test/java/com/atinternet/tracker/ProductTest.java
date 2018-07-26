@@ -65,7 +65,7 @@ public class ProductTest extends AbstractTestClass {
 
     @Test
     public void setEventTest() {
-        product.setProductId("pdtID").setCategory4("cat4").setEvent();
+        product.setProductId("pdtID").setCategory4("cat4").setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -80,7 +80,7 @@ public class ProductTest extends AbstractTestClass {
     @Test
     public void setEventWithCOTest() {
         product.setProductId("pdtID").CustomObjects().add("{}");
-        product.setEvent();
+        product.setParams();
 
         assertEquals(3, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -98,9 +98,9 @@ public class ProductTest extends AbstractTestClass {
 
     @Test
     public void multiplesValuesTest() {
-        new Product(tracker).setProductId("pdtID").setEvent();
-        new Product(tracker).setProductId("pdtID1").setEvent();
-        new Product(tracker).setProductId("pdtID3").setEvent();
+        new Product(tracker).setProductId("pdtID").setParams();
+        new Product(tracker).setProductId("pdtID1").setParams();
+        new Product(tracker).setProductId("pdtID3").setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());

@@ -60,7 +60,7 @@ public class CampaignTest extends AbstractTestClass {
         assertNull(Tracker.getPreferences().getString(TrackerConfigurationKeys.MARKETING_CAMPAIGN_SAVED, null));
 
         campaign.setCampaignId("campaign")
-                .setEvent();
+                .setParams();
 
         assertEquals(1, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -83,7 +83,7 @@ public class CampaignTest extends AbstractTestClass {
         assertEquals("campaign", Tracker.getPreferences().getString(TrackerConfigurationKeys.MARKETING_CAMPAIGN_SAVED, null));
 
         campaign.setCampaignId("test")
-                .setEvent();
+                .setParams();
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
 

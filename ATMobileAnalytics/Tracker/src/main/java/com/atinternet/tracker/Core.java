@@ -284,8 +284,10 @@ class Builder implements Runnable {
     private static final String PERCENT_VALUE = "%";
     private static final String MH_PARAMETER_FORMAT = "%1$s-%2$s-%3$s";
     private static final String MHID_FORMAT = "%02d%02d%02d%d";
+    private static final String[] MH_PARAMS_ALL_PARTS = new String[]{"idclient", "col"};
     private static final String OPT_OUT = "opt-out";
     private static final String MHERR = "mherr";
+
     private static final int REFCONFIGCHUNKS = 4;
     private static final int MH_PARAMETER_MAX_LENGTH = 30;
     private static final int MHERR_PARAMETER_LENGTH = 8;
@@ -361,23 +363,29 @@ class Builder implements Runnable {
         StringBuilder queryString = new StringBuilder();
 
         String configStr = buildConfiguration();
-        String idClient = "";
+        String mhCommonQueryContent;
 
 
         // Calcul pour connaitre la longueur maximum du hit
         String oltParameter = Tool.getTimeStamp().execute();
         int maxLengthAvailable = HIT_MAX_LENGTH - (configStr.length() + oltParameter.length() + MH_PARAMETER_MAX_LENGTH);
-        maxLengthAvailable -= idClient.length();
 
         LinkedHashMap<String, Pair<String, String>> dictionary;
         if (!TextUtils.isEmpty(configStr)) {
             dictionary = prepareQuery();
             Set<String> keySet = dictionary.keySet();
 
-            if (dictionary.get(Hit.HitParam.UserId.stringValue()) != null) {
-                idClient = dictionary.get(Hit.HitParam.UserId.stringValue()).first;
-                maxLengthAvailable -= idClient.length();
+            StringBuilder mhCommonQueryContentSb = new StringBuilder();
+            for (String paramKey : MH_PARAMS_ALL_PARTS) {
+                Pair<String, String> pair = dictionary.remove(paramKey);
+                if (pair != null) {
+                    String str = pair.first;
+                    maxLengthAvailable -= str.length();
+                    mhCommonQueryContentSb.append(str);
+                }
             }
+            mhCommonQueryContent = mhCommonQueryContentSb.toString();
+            queryString.append(mhCommonQueryContent);
 
             // Outerloop est un label de référence si jamais une boucle doit être interrompue
             outerloop:
@@ -431,7 +439,7 @@ class Builder implements Runnable {
                                 countSplitHits++;
                                 prepareHitsList.add(queryString.toString());
                                 queryString = new StringBuilder()
-                                        .append(idClient)
+                                        .append(mhCommonQueryContent)
                                         .append(currentKey)
                                         .append(i == 0 ? currentSplitValue : separator + currentSplitValue);
                             }
@@ -452,7 +460,7 @@ class Builder implements Runnable {
                     countSplitHits++;
                     prepareHitsList.add(queryString.toString());
                     queryString = new StringBuilder()
-                            .append(idClient)
+                            .append(mhCommonQueryContent)
                             .append(value);
                 }
                 //Sinon, on ne découpe pas
@@ -575,8 +583,7 @@ class Builder implements Runnable {
 
         // PREPARE
         for (final Param p : params) {
-            List<Closure> paramValues = new ArrayList<>();
-            paramValues.addAll(p.getValues());
+            List<Closure> paramValues = new ArrayList<>(p.getValues());
 
             String strValue = paramValues.remove(0).execute();
             if (strValue != null) {
@@ -584,8 +591,7 @@ class Builder implements Runnable {
                 if (p.getOptions() != null) {
                     if (p.getOptions().getType() == ParamOption.Type.JSON) {
                         try {
-                            Map result = new HashMap();
-                            result.putAll(Tool.toMap(new JSONObject(strValue)));
+                            Map result = new HashMap(Tool.toMap(new JSONObject(strValue)));
                             for (Closure closureValue : paramValues) {
                                 String appendValue = closureValue.execute();
                                 if (Tool.isJSON(appendValue)) {
@@ -861,7 +867,7 @@ class Sender implements Runnable {
 
     private void updateDebugger(final String message, final String type, final boolean isHit) {
         if (Debugger.getContext() != null) {
-            ((Activity) Debugger.getContext()).runOnUiThread(new Runnable() {
+            Tool.runOnMainThread((Activity) Debugger.getContext(), new Runnable() {
                 @Override
                 public void run() {
                     Debugger.getDebuggerEvents().add(0, new Debugger.DebuggerEvent(message, type, isHit));
@@ -885,11 +891,10 @@ class Dispatcher {
     void dispatch(BusinessObject... businessObjects) {
         ArrayList<BusinessObject> trackerObjects;
         for (BusinessObject businessObject : businessObjects) {
-            businessObject.setEvent();
+            businessObject.setParams();
 
             if (businessObject instanceof AbstractScreen) {
-                trackerObjects = new ArrayList<>();
-                trackerObjects.addAll(tracker.getBusinessObjects().values());
+                trackerObjects = new ArrayList<>(tracker.getBusinessObjects().values());
 
                 boolean hasOrder = false;
 
@@ -904,22 +909,21 @@ class Dispatcher {
                             hasOrder = true;
                         }
 
-                        object.setEvent();
+                        object.setParams();
                         tracker.getBusinessObjects().remove(object.getId());
                     }
                 }
 
                 if (tracker.Cart().getCartId() != null && (((Screen) businessObject).isBasketScreen() || hasOrder)) {
-                    tracker.Cart().setEvent();
+                    tracker.Cart().setParams();
                 }
             } else if (businessObject instanceof Gesture) {
-                trackerObjects = new ArrayList<>();
-                trackerObjects.addAll(tracker.getBusinessObjects().values());
+                trackerObjects = new ArrayList<>(tracker.getBusinessObjects().values());
 
                 if (((Gesture) businessObject).getAction() == Gesture.Action.InternalSearch) {
                     for (BusinessObject object : trackerObjects) {
                         if ((object instanceof InternalSearch) && object.getTimestamp() < businessObject.getTimestamp()) {
-                            object.setEvent();
+                            object.setParams();
                             tracker.getBusinessObjects().remove(object.getId());
                         }
                     }
@@ -927,12 +931,11 @@ class Dispatcher {
             }
 
             tracker.getBusinessObjects().remove(businessObject.getId());
-            trackerObjects = new ArrayList<>();
-            trackerObjects.addAll(tracker.getBusinessObjects().values());
+            trackerObjects = new ArrayList<>(tracker.getBusinessObjects().values());
 
             for (BusinessObject object : trackerObjects) {
                 if ((object instanceof CustomObject || object instanceof NuggAd) && object.getTimestamp() < businessObject.getTimestamp()) {
-                    object.setEvent();
+                    object.setParams();
                     tracker.getBusinessObjects().remove(object.getId());
                 }
             }
@@ -1402,10 +1405,6 @@ class Tool {
         FIRST_LAUNCH, BUILD, SEND, PARTNER, WARNING, SAVE, ERROR
     }
 
-    static String upperCaseFirstLetter(String s) {
-        return String.valueOf(s.charAt(0)).toUpperCase() + s.substring(1);
-    }
-
     static String percentEncode(String s) {
         try {
             s = URLEncoder.encode(s, "UTF-8");
@@ -1466,19 +1465,6 @@ class Tool {
         }
 
         return result.toString();
-    }
-
-    static ArrayList<Pair<Param, Integer>> findParametersWithPosition(String key, ArrayList<Param> parameters) {
-        ArrayList<Pair<Param, Integer>> params = new ArrayList<>();
-        int index = 0;
-        for (Param p : parameters) {
-            if (p.getKey().equals(key)) {
-                params.add(new Pair<>(p, index));
-            }
-            index++;
-        }
-
-        return params;
     }
 
     static Closure getTimeStamp() {
@@ -1542,10 +1528,6 @@ class Tool {
         return (int) TimeUnit.DAYS.convert((latestTimeMillis - oldestTimeMillis), TimeUnit.MILLISECONDS);
     }
 
-    static int getMinutesBetweenTimes(long latestTimeMillis, long oldestTimeMillis) {
-        return (int) TimeUnit.MINUTES.convert((latestTimeMillis - oldestTimeMillis), TimeUnit.MILLISECONDS);
-    }
-
     static int getSecondsBetweenTimes(long latestTimeMillis, long oldestTimeMillis) {
         return (int) TimeUnit.SECONDS.convert((latestTimeMillis - oldestTimeMillis), TimeUnit.MILLISECONDS);
     }
@@ -1595,15 +1577,6 @@ class Tool {
             map.put(key, value);
         }
         return map;
-    }
-
-    static Param findParameter(String key, LinkedHashMap<String, Param> volatiles, LinkedHashMap<String, Param> persistents) {
-        if (volatiles.containsKey(key)) {
-            return volatiles.get(key);
-        } else if (persistents.containsKey(key)) {
-            return persistents.get(key);
-        }
-        return null;
     }
 
     static SparseIntArray sortSparseIntArrayByKey(SparseIntArray arr) {
@@ -2038,6 +2011,7 @@ class Lists {
         set.add("atc");
         set.add("pdtl");
         set.add("stc");
+        set.add("events");
         return set;
     }
 }

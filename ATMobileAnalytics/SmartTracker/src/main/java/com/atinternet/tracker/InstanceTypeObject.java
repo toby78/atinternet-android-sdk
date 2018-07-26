@@ -43,7 +43,7 @@ abstract class BusinessObject {
         return tracker;
     }
 
-    abstract void setEvent();
+    abstract void setParams();
 
     BusinessObject() {
         id = UUID.randomUUID().toString();

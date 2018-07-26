@@ -58,7 +58,7 @@ public class NuggAdTest extends AbstractTestClass {
     @Test
     public void setEventTest() throws JSONException {
         JSONObject jsonObject = new JSONObject().put("key", "value");
-        nuggAd.setNuggAdData(jsonObject).setEvent();
+        nuggAd.setNuggAdData(jsonObject).setParams();
 
         assertEquals(1, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());

@@ -242,7 +242,7 @@ public class Publisher extends OnAppAd {
     }
 
     @Override
-    void setEvent() {
+    void setParams() {
         String publisher = String.format(PUBLISHER_FORMAT,
                 campaignId,
                 creation != null ? creation : "",
@@ -279,7 +279,7 @@ public class Publisher extends OnAppAd {
 
         if (customObjectsMap != null) {
             for (CustomObject co : customObjectsMap.values()) {
-                co.setEvent();
+                co.setParams();
             }
         }
 

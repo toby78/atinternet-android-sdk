@@ -86,7 +86,7 @@ public class OrderTest extends AbstractTestClass {
     @Test
     public void setEventTest() {
         order.Amount().set(34.6, 6.7, 8).CustomVars().add(4, "test");
-        order.setEvent();
+        order.setParams();
 
         assertEquals(6, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());

@@ -22,53 +22,33 @@ SOFTWARE.
  */
 package com.atinternet.tracker;
 
-import org.json.JSONObject;
+import java.util.Map;
 
 class Event {
 
-    /**
-     * Tracker instance
-     */
-    private final Tracker tracker;
+    private String action;
+    private Map<String, Object> data;
 
-    /**
-     * Constructor
-     *
-     * @param tracker Tracker
-     */
-    Event(Tracker tracker) {
-        this.tracker = tracker;
+    public String getAction() {
+        return action;
     }
 
-    /**
-     * Set a generic event
-     *
-     * @param category String
-     * @param action   String
-     * @param label    String
-     * @return Tracker
-     */
-    Tracker set(String category, String action, String label) {
-        return set(category, action, label, new JSONObject().toString());
+    public Event setAction(String action) {
+        this.action = action;
+        return this;
     }
 
-    /**
-     * Set a generic event
-     *
-     * @param category String
-     * @param action   String
-     * @param label    String
-     * @param value    String
-     * @return Tracker
-     */
-    Tracker set(String category, String action, String label, String value) {
-        ParamOption appendWithEncoding = new ParamOption().setAppend(true).setEncode(true);
-        ParamOption afterIdWithEncoding = new ParamOption().setRelativePosition(ParamOption.RelativePosition.after)
-                .setRelativeParameterKey(Hit.HitParam.UserId.stringValue()).setEncode(true);
+    public Map<String, Object> getData() {
+        return data;
+    }
 
-        return tracker.setParam(Hit.HitParam.HitType.stringValue(), category)
-                .setParam(Hit.HitParam.Action.stringValue(), action)
-                .setParam(Hit.HitParam.Screen.stringValue(), label, afterIdWithEncoding)
-                .setParam(Hit.HitParam.JSON.stringValue(), value, appendWithEncoding);
+    public Event setData(Map<String, Object> data) {
+        this.data = data;
+        return this;
+    }
+
+    Event(String action, Map<String, Object> data) {
+        this.action = action;
+        this.data = data;
     }
 }

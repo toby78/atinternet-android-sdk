@@ -62,7 +62,7 @@ public class SelfPromotionTest extends AbstractTestClass {
 
     @Test
     public void setEventImpressionTest() {
-        selfPromotion.setAdId(98).setEvent();
+        selfPromotion.setAdId(98).setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -77,7 +77,7 @@ public class SelfPromotionTest extends AbstractTestClass {
     @Test
     public void setEventWithCustomObjectsTest() {
         selfPromotion.setAdId(4).CustomObjects().add("{\"test\":\"value\"}");
-        selfPromotion.setEvent();
+        selfPromotion.setParams();
 
         assertEquals(3, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -94,7 +94,7 @@ public class SelfPromotionTest extends AbstractTestClass {
 
     @Test
     public void setEventTouchTest() {
-        selfPromotion.setAdId(98).setProductId("pdt").setAction(OnAppAd.Action.Touch).setEvent();
+        selfPromotion.setAdId(98).setProductId("pdt").setAction(OnAppAd.Action.Touch).setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -108,9 +108,9 @@ public class SelfPromotionTest extends AbstractTestClass {
 
     @Test
     public void multipleValuesTest() {
-        new SelfPromotion(tracker).setAdId(98).setProductId("pdt").setAction(OnAppAd.Action.Touch).setEvent();
-        new SelfPromotion(tracker).setAdId(99).setProductId("pdt").setAction(OnAppAd.Action.Touch).setEvent();
-        new SelfPromotion(tracker).setAdId(100).setProductId("pdt").setAction(OnAppAd.Action.Touch).setEvent();
+        new SelfPromotion(tracker).setAdId(98).setProductId("pdt").setAction(OnAppAd.Action.Touch).setParams();
+        new SelfPromotion(tracker).setAdId(99).setProductId("pdt").setAction(OnAppAd.Action.Touch).setParams();
+        new SelfPromotion(tracker).setAdId(100).setProductId("pdt").setAction(OnAppAd.Action.Touch).setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());

@@ -72,7 +72,7 @@ public class LiveAudioTest extends AbstractTestClass {
                 .setName("name")
                 .setLevel2(9)
                 .setChapter1("chapter1")
-                .setEvent();
+                .setParams();
 
         assertEquals(7, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -102,7 +102,7 @@ public class LiveAudioTest extends AbstractTestClass {
                 .setMediaLabel("name")
                 .setMediaLevel2(9)
                 .setMediaTheme1("chapter1")
-                .setEvent();
+                .setParams();
 
         assertEquals(7, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -136,7 +136,7 @@ public class LiveAudioTest extends AbstractTestClass {
                 .setMediaLabel("name")
                 .setMediaLevel2(9)
                 .setMediaTheme1("chapter1")
-                .setEvent();
+                .setParams();
 
         assertEquals(7, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -170,7 +170,7 @@ public class LiveAudioTest extends AbstractTestClass {
                 .setMediaLabel("name")
                 .setMediaLevel2(9)
                 .setMediaTheme1("chapter1")
-                .setEvent();
+                .setParams();
         assertEquals(7, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
 
@@ -203,7 +203,7 @@ public class LiveAudioTest extends AbstractTestClass {
                 .setMediaLabel("name")
                 .setMediaLevel2(9)
                 .setMediaTheme1("chapter1")
-                .setEvent();
+                .setParams();
         assertEquals(7, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
 

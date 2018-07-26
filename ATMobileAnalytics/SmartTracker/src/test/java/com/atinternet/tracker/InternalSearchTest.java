@@ -58,7 +58,7 @@ public class InternalSearchTest extends AbstractTestClass {
 
     @Test
     public void setEventTest() {
-        internalSearch.setKeyword("search").setResultScreenNumber(3).setEvent();
+        internalSearch.setKeyword("search").setResultScreenNumber(3).setParams();
 
         assertEquals(2, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
@@ -72,7 +72,7 @@ public class InternalSearchTest extends AbstractTestClass {
 
     @Test
     public void setEventTouchTest() {
-        internalSearch.setKeyword("se)a..rù c^h").setResultScreenNumber(3).setResultPosition(5).setEvent();
+        internalSearch.setKeyword("se)a..rù c^h").setResultScreenNumber(3).setResultPosition(5).setParams();
 
         assertEquals(3, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());

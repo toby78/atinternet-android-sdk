@@ -99,7 +99,7 @@ public class Tracker {
 
     private Screens screens;
     private Gestures gestures;
-    private Event event;
+    private Events events;
     private Context context;
     private NuggAds nuggAds;
     private Offline offline;
@@ -376,16 +376,11 @@ public class Tracker {
         return gestures;
     }
 
-    /**
-     * Get Event instance
-     *
-     * @return Event
-     */
-    Event Event() {
-        if (event == null) {
-            event = new Event(this);
+    Events Events() {
+        if (events == null) {
+            events = new Events(this);
         }
-        return event;
+        return events;
     }
 
     /**

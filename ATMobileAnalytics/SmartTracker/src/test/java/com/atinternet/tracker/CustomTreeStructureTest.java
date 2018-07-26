@@ -59,7 +59,7 @@ public class CustomTreeStructureTest extends AbstractTestClass {
     public void setEventTest() {
         customTreeStructure.setCategory1(4)
                 .setCategory3(4)
-                .setEvent();
+                .setParams();
         assertEquals(1, buffer.getVolatileParams().size());
         assertEquals(0, buffer.getPersistentParams().size());
 
