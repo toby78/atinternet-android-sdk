@@ -20,17 +20,37 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-package com.atinternet.tracker;
+package com.atinternet.tracker.ecommerce;
 
-public class Events extends Helper {
+import com.atinternet.tracker.Event;
+import com.atinternet.tracker.EventList;
 
-    Events(Tracker tracker) {
-        super(tracker);
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ProductEvent extends Event {
+
+    private List<Product> products;
+
+    ProductEvent(EventList el, String action) {
+        super(el, action);
+        products = new ArrayList<>();
     }
 
-    public EventList add() {
-        EventList el = new EventList(tracker);
-        tracker.getBusinessObjects().put(el.getId(), el);
-        return el;
+    public List<Product> Products() {
+        return products;
+    }
+
+    @Override
+    public List<Map<String, Object>> getDataObjectList() {
+        List<Map<String, Object>> eventDataObjectList = new ArrayList<>();
+        for (Product p : products) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("product", p);
+            eventDataObjectList.add(data);
+        }
+        return eventDataObjectList;
     }
 }

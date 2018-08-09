@@ -119,6 +119,8 @@ public class Tracker {
     private Products products;
     private MediaPlayers mediaPlayers;
 
+    private ECommerce eCommerce;
+
     Buffer getBuffer() {
         return buffer;
     }
@@ -375,11 +377,18 @@ public class Tracker {
         return gestures;
     }
 
-    Events Events() {
+    public Events Events() {
         if (events == null) {
             events = new Events(this);
         }
         return events;
+    }
+
+    public ECommerce ECommerce() {
+        if (eCommerce == null) {
+            eCommerce = new ECommerce(this);
+        }
+        return eCommerce;
     }
 
     /**

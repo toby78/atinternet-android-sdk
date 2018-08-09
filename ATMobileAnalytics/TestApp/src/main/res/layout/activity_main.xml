@@ -10,84 +10,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.atinternet.MainActivity">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/displayProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="displayProduct" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <!-- Content here -->
+    <Button
+        android:id="@+id/clickProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clickProduct" />
 
+    <Button
+        android:id="@+id/displayPageProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="displayPageProduct" />
 
-            <Button
-                android:id="@+id/sendPlayWithoutRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Play without refresh" />
+    <Button
+        android:id="@+id/addProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="addProduct" />
 
-            <Button
-                android:id="@+id/sendPlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Play" />
+    <Button
+        android:id="@+id/removeProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="removeProduct" />
 
-            <Button
-                android:id="@+id/sendPause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Pause" />
+    <Button
+        android:id="@+id/displayCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="displayCart" />
 
-            <Button
-                android:id="@+id/sendResume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Resume" />
+    <Button
+        android:id="@+id/updateCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="updateCart" />
 
-            <Button
-                android:id="@+id/sendMove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Move" />
+    <Button
+        android:id="@+id/deliveryCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="deliveryCheckout" />
 
-            <Button
-                android:id="@+id/sendShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Share" />
+    <Button
+        android:id="@+id/paymentCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="paymentCheckout" />
 
-            <Button
-                android:id="@+id/sendEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Email" />
-
-            <Button
-                android:id="@+id/sendFavor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Favor" />
-
-            <Button
-                android:id="@+id/sendDownload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Download" />
-
-            <Button
-                android:id="@+id/sendInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Info" />
-
-            <Button
-                android:id="@+id/sendStop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send Stop" />
-
-        </LinearLayout>
-    </ScrollView>
+    <Button
+        android:id="@+id/transactionConfirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="transactionConfirmation" />
 
 </LinearLayout>

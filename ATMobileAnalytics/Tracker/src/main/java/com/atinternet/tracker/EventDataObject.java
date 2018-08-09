@@ -22,15 +22,44 @@ SOFTWARE.
  */
 package com.atinternet.tracker;
 
-public class Events extends Helper {
+import java.util.HashMap;
+import java.util.Map;
 
-    Events(Tracker tracker) {
-        super(tracker);
+public abstract class EventDataObject extends HashMap<String, Object> {
+
+    protected final Map<String, String> propertiesPrefixMap;
+
+    protected EventDataObject() {
+        propertiesPrefixMap = new HashMap<>();
     }
 
-    public EventList add() {
-        EventList el = new EventList(tracker);
-        tracker.getBusinessObjects().put(el.getId(), el);
-        return el;
+    @Override
+    public Object put(String key, Object value) {
+        String prefix = propertiesPrefixMap.get(key);
+
+        if (prefix != null) {
+            key = String.format("%s:%s", prefix, key);
+        }
+        return super.put(key, value);
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ?> m) {
+        Map<String, Object> result = new HashMap<>();
+
+        for (Entry<? extends String, ?> entry : m.entrySet()) {
+            String entryKey = entry.getKey();
+            String prefix = propertiesPrefixMap.get(entryKey);
+
+            if (prefix != null) {
+                entryKey = String.format("%s:%s", prefix, entryKey);
+            }
+            result.put(entryKey, entry.getValue());
+        }
+        super.putAll(result);
+    }
+
+    public void set(HashMap<String, Object> obj) {
+        putAll(obj);
     }
 }

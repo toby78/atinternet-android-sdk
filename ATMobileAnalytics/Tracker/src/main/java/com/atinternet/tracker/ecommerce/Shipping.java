@@ -20,17 +20,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-package com.atinternet.tracker;
+package com.atinternet.tracker.ecommerce;
 
-public class Events extends Helper {
+import com.atinternet.tracker.EventDataObject;
 
-    Events(Tracker tracker) {
-        super(tracker);
-    }
+class Shipping extends EventDataObject {
 
-    public EventList add() {
-        EventList el = new EventList(tracker);
-        tracker.getBusinessObjects().put(el.getId(), el);
-        return el;
+    Shipping() {
+        super();
+        /// STRING
+        propertiesPrefixMap.put("delivery", "s");
+
+        /// FLOAT
+        propertiesPrefixMap.put("costTaxIncluded", "f");
+        propertiesPrefixMap.put("costTaxFree", "f");
     }
 }

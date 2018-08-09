@@ -49,9 +49,10 @@ public class EventsTest extends AbstractTestClass {
 
     @Test
     public void setParamsOneTest() throws JSONException {
-        Event e = events.add("act", new HashMap<String, Object>() {{
+        EventObjects e = new EventObjects("act", new HashMap<String, Object>() {{
             put("test1", "value1");
         }});
+        events.add(e);
 
         events.setParams();
 
@@ -78,10 +79,11 @@ public class EventsTest extends AbstractTestClass {
 
     @Test
     public void setParamsTwoTest() throws JSONException {
-        Event e = events.add("act", new HashMap<String, Object>() {{
+        EventObjects e = new EventObjects("act", new HashMap<String, Object>() {{
             put("test1", true);
         }});
-        e.getData().put("test2", "value");
+        events.add(e);
+        e.getEventDataObjectList().add(new HashMap<String, Object>().put("test2", "value"));
         e.setAction("actionn");
 
         events.setParams();
@@ -108,45 +110,4 @@ public class EventsTest extends AbstractTestClass {
         assertEquals("2", buffer.getVolatileParams().get("col").getValues().get(0).execute());
     }
 
-    @Test
-    public void removeByActionTest() {
-        events.add("act", new HashMap<String, Object>() {{
-            put("test1", true);
-        }});
-        events.add("act", new HashMap<String, Object>() {{
-            put("test2", true);
-        }});
-        events.add("test", new HashMap<String, Object>() {{
-            put("test2", true);
-        }});
-
-        assertEquals(3, events.count());
-
-        events.removeByAction("act");
-
-        assertEquals(1, events.count());
-        assertEquals("test", events.getByIndex(0).getAction());
-    }
-
-    @Test
-    public void removeByIndexTest() {
-        events.add("act", new HashMap<String, Object>() {{
-            put("test1", true);
-        }});
-        events.add("act", new HashMap<String, Object>() {{
-            put("test2", true);
-        }});
-        events.add("test", new HashMap<String, Object>() {{
-            put("test2", true);
-        }});
-
-        assertEquals(3, events.count());
-
-        events.removeByIndex(2);
-
-        assertEquals(2, events.count());
-        assertEquals(2, events.getByAction("act").size());
-        assertEquals("act", events.getByIndex(0).getAction());
-        assertEquals("act", events.getByIndex(1).getAction());
-    }
 }
