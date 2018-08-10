@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class CheckoutEvent extends CartEvent {
 
-    private Shipping shipping;
+    protected Shipping shipping;
 
     CheckoutEvent(Events events, String action) {
         super(events, action);

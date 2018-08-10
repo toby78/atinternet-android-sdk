@@ -229,12 +229,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tracker.dispatch();
                 break;
             case R.id.transactionConfirmation:
-                Product p10 = new Product(productData3);
-                p10.put("brand", "adadas");
-                p10.put("key", "value");
-                tracker.ECommerce().TransactionConfirmations().add().Products().add(p10);
-                tracker.ECommerce().TransactionConfirmations().add();
-
                 TransactionConfirmationEvent tce = tracker.ECommerce().TransactionConfirmations().add();
                 tce.Products().add(new Product(productData1));
                 tce.Products().add(new Product(productData2));
@@ -272,8 +266,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tce.Transaction().put("key", "value");
 
                 tce.send();
-
-                tracker.dispatch();
                 break;
         }
     }

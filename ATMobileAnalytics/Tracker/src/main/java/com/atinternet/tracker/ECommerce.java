@@ -35,6 +35,7 @@ import com.atinternet.tracker.ecommerce.UpdateCarts;
 
 public class ECommerce {
 
+    private Tracker tracker;
     private Events events;
     private DisplayProducts displayProducts;
     private ClickProducts clickProducts;
@@ -48,6 +49,7 @@ public class ECommerce {
     private TransactionConfirmations transactionConfirmations;
 
     ECommerce(Tracker tracker) {
+        this.tracker = tracker;
         this.events = tracker.Events();
     }
 
@@ -156,7 +158,7 @@ public class ECommerce {
      */
     public TransactionConfirmations TransactionConfirmations() {
         if (transactionConfirmations == null) {
-            transactionConfirmations = new TransactionConfirmations(events);
+            transactionConfirmations = new TransactionConfirmations(tracker);
         }
         return transactionConfirmations;
     }

@@ -23,19 +23,31 @@ SOFTWARE.
 package com.atinternet.tracker;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class Event {
 
     private List<Map<String, Object>> dataObjectList;
+
     protected String action;
+
     protected Events events;
 
     protected Event(Events events, String action) {
         this.action = action;
         this.events = events;
         dataObjectList = new ArrayList<>();
+    }
+
+    public Event setAction(String action) {
+        this.action = action;
+        return this;
+    }
+
+    public Event setDataObject(Map<String, Object> dataObject) {
+        return setDataObjectList(Collections.singletonList(dataObject));
     }
 
     protected Event setDataObjectList(List<Map<String, Object>> dataObjectList) {

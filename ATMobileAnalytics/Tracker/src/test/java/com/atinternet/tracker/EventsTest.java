@@ -49,10 +49,9 @@ public class EventsTest extends AbstractTestClass {
 
     @Test
     public void setParamsOneTest() throws JSONException {
-        EventObjects e = new EventObjects("act", new HashMap<String, Object>() {{
+        events.add("act", new HashMap<String, Object>() {{
             put("test1", "value1");
         }});
-        events.add(e);
 
         events.setParams();
 
@@ -79,11 +78,12 @@ public class EventsTest extends AbstractTestClass {
 
     @Test
     public void setParamsTwoTest() throws JSONException {
-        EventObjects e = new EventObjects("act", new HashMap<String, Object>() {{
+        Event e = events.add("act", new HashMap<String, Object>() {{
             put("test1", true);
         }});
-        events.add(e);
-        e.getEventDataObjectList().add(new HashMap<String, Object>().put("test2", "value"));
+        e.setDataObject(new HashMap<String, Object>() {{
+            put("test2", "value");
+        }});
         e.setAction("actionn");
 
         events.setParams();
@@ -101,13 +101,11 @@ public class EventsTest extends AbstractTestClass {
         assertEquals("actionn", event.getString("action"));
 
         JSONObject data = event.getJSONObject("data");
-        assertEquals(2, data.length());
-        assertEquals(true, data.getBoolean("test1"));
+        assertEquals(1, data.length());
         assertEquals("value", data.getString("test2"));
 
 
         assertEquals(1, buffer.getVolatileParams().get("col").getValues().size());
         assertEquals("2", buffer.getVolatileParams().get("col").getValues().get(0).execute());
     }
-
 }

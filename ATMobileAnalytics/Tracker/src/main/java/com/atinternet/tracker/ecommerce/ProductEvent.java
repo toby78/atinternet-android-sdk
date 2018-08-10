@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class ProductEvent extends Event {
 
-    private List<Product> products;
+    protected List<Product> products;
 
     ProductEvent(Events events, String action) {
         super(events, action);

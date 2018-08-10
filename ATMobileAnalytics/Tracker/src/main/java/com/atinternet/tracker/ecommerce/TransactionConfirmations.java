@@ -22,19 +22,19 @@ SOFTWARE.
  */
 package com.atinternet.tracker.ecommerce;
 
-import com.atinternet.tracker.Events;
+import com.atinternet.tracker.Tracker;
 
 public class TransactionConfirmations {
 
-    private Events events;
+    private Tracker tracker;
 
-    public TransactionConfirmations(Events events) {
-        this.events = events;
+    public TransactionConfirmations(Tracker tracker) {
+        this.tracker = tracker;
     }
 
     public TransactionConfirmationEvent add() {
-        TransactionConfirmationEvent tce = new TransactionConfirmationEvent(events, "transaction.confirmation");
-        events.add(tce);
+        TransactionConfirmationEvent tce = new TransactionConfirmationEvent(tracker, "transaction.confirmation");
+        tracker.Events().add(tce);
         return tce;
     }
 }
