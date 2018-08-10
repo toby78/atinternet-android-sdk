@@ -23,7 +23,7 @@ SOFTWARE.
 package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.Event;
-import com.atinternet.tracker.EventList;
+import com.atinternet.tracker.Events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,8 +34,8 @@ public class ProductEvent extends Event {
 
     private List<Product> products;
 
-    ProductEvent(EventList el, String action) {
-        super(el, action);
+    ProductEvent(Events events, String action) {
+        super(events, action);
         products = new ArrayList<>();
     }
 
@@ -44,8 +44,8 @@ public class ProductEvent extends Event {
     }
 
     @Override
-    public List<Map<String, Object>> getDataObjectList() {
-        List<Map<String, Object>> eventDataObjectList = new ArrayList<>();
+    protected List<Map<String, Object>> getDataObjectList() {
+        List<Map<String, Object>> eventDataObjectList = super.getDataObjectList();
         for (Product p : products) {
             Map<String, Object> data = new HashMap<>();
             data.put("product", p);

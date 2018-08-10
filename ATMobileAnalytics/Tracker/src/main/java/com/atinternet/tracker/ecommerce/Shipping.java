@@ -24,7 +24,7 @@ package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.EventDataObject;
 
-class Shipping extends EventDataObject {
+public class Shipping extends EventDataObject {
 
     Shipping() {
         super();

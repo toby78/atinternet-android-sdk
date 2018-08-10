@@ -33,6 +33,12 @@ public abstract class EventDataObject extends HashMap<String, Object> {
         propertiesPrefixMap = new HashMap<>();
     }
 
+    /***
+     * Override base method to set prefix if key are known
+     * @param key String
+     * @param value Object
+     * @return Object
+     */
     @Override
     public Object put(String key, Object value) {
         String prefix = propertiesPrefixMap.get(key);
@@ -43,6 +49,10 @@ public abstract class EventDataObject extends HashMap<String, Object> {
         return super.put(key, value);
     }
 
+    /***
+     * Override base method to check if properties are known and add prefix key
+     * @param m Map
+     */
     @Override
     public void putAll(Map<? extends String, ?> m) {
         Map<String, Object> result = new HashMap<>();
@@ -59,7 +69,11 @@ public abstract class EventDataObject extends HashMap<String, Object> {
         super.putAll(result);
     }
 
-    public void set(HashMap<String, Object> obj) {
+    /***
+     * Alias to putAll
+     * @param obj Map
+     */
+    public void set(Map<String, Object> obj) {
         putAll(obj);
     }
 }

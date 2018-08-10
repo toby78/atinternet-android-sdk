@@ -22,11 +22,11 @@ SOFTWARE.
  */
 package com.atinternet.tracker.ecommerce;
 
-import com.atinternet.tracker.EventList;
+import com.atinternet.tracker.Events;
 
-public class DisplayCarts extends AbstractCartEvents {
+public class DisplayCarts extends CartEvents {
 
-    public DisplayCarts(EventList el) {
-        super(el, "cart.display");
+    public DisplayCarts(Events events) {
+        super(events, "cart.display");
     }
 }

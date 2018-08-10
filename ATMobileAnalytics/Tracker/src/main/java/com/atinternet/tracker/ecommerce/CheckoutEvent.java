@@ -22,7 +22,7 @@ SOFTWARE.
  */
 package com.atinternet.tracker.ecommerce;
 
-import com.atinternet.tracker.EventList;
+import com.atinternet.tracker.Events;
 
 import java.util.List;
 import java.util.Map;
@@ -31,8 +31,8 @@ public class CheckoutEvent extends CartEvent {
 
     private Shipping shipping;
 
-    CheckoutEvent(EventList el, String action) {
-        super(el, action);
+    CheckoutEvent(Events events, String action) {
+        super(events, action);
         shipping = new Shipping();
     }
 
@@ -41,7 +41,7 @@ public class CheckoutEvent extends CartEvent {
     }
 
     @Override
-    public List<Map<String, Object>> getDataObjectList() {
+    protected List<Map<String, Object>> getDataObjectList() {
         List<Map<String, Object>> eventDataObjectList = super.getDataObjectList();
         for (Map<String, Object> data : eventDataObjectList) {
             data.put("shipping", shipping);

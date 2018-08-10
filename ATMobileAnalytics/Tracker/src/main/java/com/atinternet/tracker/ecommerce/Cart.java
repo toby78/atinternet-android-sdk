@@ -26,7 +26,7 @@ import com.atinternet.tracker.EventDataObject;
 
 import java.util.HashMap;
 
-class Cart extends EventDataObject {
+public class Cart extends EventDataObject {
 
     Cart() {
         super();

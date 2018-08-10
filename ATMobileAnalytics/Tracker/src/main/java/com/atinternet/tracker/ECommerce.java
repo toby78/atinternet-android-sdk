@@ -35,7 +35,7 @@ import com.atinternet.tracker.ecommerce.UpdateCarts;
 
 public class ECommerce {
 
-    private Tracker tracker;
+    private Events events;
     private DisplayProducts displayProducts;
     private ClickProducts clickProducts;
     private DisplayPageProducts displayPageProducts;
@@ -48,75 +48,115 @@ public class ECommerce {
     private TransactionConfirmations transactionConfirmations;
 
     ECommerce(Tracker tracker) {
-        this.tracker = tracker;
+        this.events = tracker.Events();
     }
 
+    /***
+     * Create DisplayProducts helper
+     * @return DisplayProducts
+     */
     public DisplayProducts DisplayProducts() {
         if (displayProducts == null) {
-            displayProducts = new DisplayProducts(tracker.Events().add());
+            displayProducts = new DisplayProducts(events);
         }
         return displayProducts;
     }
 
+    /***
+     * Create ClickProducts helper
+     * @return ClickProducts
+     */
     public ClickProducts ClickProducts() {
         if (clickProducts == null) {
-            clickProducts = new ClickProducts(tracker.Events().add());
+            clickProducts = new ClickProducts(events);
         }
         return clickProducts;
     }
 
+    /***
+     * Create DisplayPageProducts helper
+     * @return DisplayPageProducts
+     */
     public DisplayPageProducts DisplayPageProducts() {
         if (displayPageProducts == null) {
-            displayPageProducts = new DisplayPageProducts(tracker.Events().add());
+            displayPageProducts = new DisplayPageProducts(events);
         }
         return displayPageProducts;
     }
 
+    /***
+     * Create AddProducts helper
+     * @return AddProducts
+     */
     public AddProducts AddProducts() {
         if (addProducts == null) {
-            addProducts = new AddProducts(tracker.Events().add());
+            addProducts = new AddProducts(events);
         }
         return addProducts;
     }
 
+    /***
+     * Create RemoveProducts helper
+     * @return RemoveProducts
+     */
     public RemoveProducts RemoveProducts() {
         if (removeProducts == null) {
-            removeProducts = new RemoveProducts(tracker.Events().add());
+            removeProducts = new RemoveProducts(events);
         }
         return removeProducts;
     }
 
+    /***
+     * Create DisplayCarts helper
+     * @return DisplayCarts
+     */
     public DisplayCarts DisplayCarts() {
         if (displayCarts == null) {
-            displayCarts = new DisplayCarts(tracker.Events().add());
+            displayCarts = new DisplayCarts(events);
         }
         return displayCarts;
     }
 
+    /***
+     * Create UpdateCarts helper
+     * @return UpdateCarts
+     */
     public UpdateCarts UpdateCarts() {
         if (updateCarts == null) {
-            updateCarts = new UpdateCarts(tracker.Events().add());
+            updateCarts = new UpdateCarts(events);
         }
         return updateCarts;
     }
 
+    /***
+     * Create DeliveryCheckouts helper
+     * @return DeliveryCheckouts
+     */
     public DeliveryCheckouts DeliveryCheckouts() {
         if (deliveryCheckouts == null) {
-            deliveryCheckouts = new DeliveryCheckouts(tracker.Events().add());
+            deliveryCheckouts = new DeliveryCheckouts(events);
         }
         return deliveryCheckouts;
     }
 
+    /***
+     * Create PaymentCheckouts helper
+     * @return PaymentCheckouts
+     */
     public PaymentCheckouts PaymentCheckouts() {
         if (paymentCheckouts == null) {
-            paymentCheckouts = new PaymentCheckouts(tracker.Events().add());
+            paymentCheckouts = new PaymentCheckouts(events);
         }
         return paymentCheckouts;
     }
 
+    /***
+     * Create TransactionConfirmations helper
+     * @return TransactionConfirmations
+     */
     public TransactionConfirmations TransactionConfirmations() {
         if (transactionConfirmations == null) {
-            transactionConfirmations = new TransactionConfirmations(tracker.Events().add());
+            transactionConfirmations = new TransactionConfirmations(events);
         }
         return transactionConfirmations;
     }

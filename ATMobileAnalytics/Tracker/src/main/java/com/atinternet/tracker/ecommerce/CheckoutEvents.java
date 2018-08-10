@@ -22,19 +22,21 @@ SOFTWARE.
  */
 package com.atinternet.tracker.ecommerce;
 
-import com.atinternet.tracker.EventList;
+import com.atinternet.tracker.Events;
 
-public abstract class AbstractCartEvents {
+public class CheckoutEvents {
 
-    private EventList el;
+    private Events events;
     private String action;
 
-    AbstractCartEvents(EventList el, String action) {
-        this.el = el;
+    CheckoutEvents(Events events, String action) {
+        this.events = events;
         this.action = action;
     }
 
-    public CartEvent add() {
-        return new CartEvent(el, action);
+    public CheckoutEvent add() {
+        CheckoutEvent ce = new CheckoutEvent(events, action);
+        events.add(ce);
+        return ce;
     }
 }

@@ -22,7 +22,7 @@ SOFTWARE.
  */
 package com.atinternet.tracker.ecommerce;
 
-import com.atinternet.tracker.EventList;
+import com.atinternet.tracker.Events;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +35,8 @@ public class TransactionConfirmationEvent extends CheckoutEvent {
     private Payment payment;
     private Customer customer;
 
-    TransactionConfirmationEvent(EventList el, String action) {
-        super(el, action);
+    TransactionConfirmationEvent(Events events, String action) {
+        super(events, action);
         promotionalCodes = new ArrayList<>();
         transaction = new Transaction();
         payment = new Payment();
@@ -60,12 +60,13 @@ public class TransactionConfirmationEvent extends CheckoutEvent {
     }
 
     @Override
-    public List<Map<String, Object>> getDataObjectList() {
+    protected List<Map<String, Object>> getDataObjectList() {
         List<Map<String, Object>> eventDataObjectList = super.getDataObjectList();
         for (Map<String, Object> data : eventDataObjectList) {
             data.put("a:s:promotionalCode", promotionalCodes);
             data.put("transaction", transaction);
             data.put("customer", customer);
+            data.put("payment", payment);
         }
         return eventDataObjectList;
     }

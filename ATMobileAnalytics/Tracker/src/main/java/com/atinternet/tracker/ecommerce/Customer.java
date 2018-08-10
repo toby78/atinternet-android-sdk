@@ -26,7 +26,7 @@ import com.atinternet.tracker.EventDataObject;
 
 import java.util.HashMap;
 
-class Customer extends EventDataObject {
+public class Customer extends EventDataObject {
 
     Customer() {
         super();

@@ -22,11 +22,11 @@ SOFTWARE.
  */
 package com.atinternet.tracker.ecommerce;
 
-import com.atinternet.tracker.EventList;
+import com.atinternet.tracker.Events;
 
-public class PaymentCheckouts extends AbstractCheckoutEvents {
+public class PaymentCheckouts extends CheckoutEvents {
 
-    public PaymentCheckouts(EventList el) {
-        super(el, "cart.payment");
+    public PaymentCheckouts(Events events) {
+        super(events, "cart.payment");
     }
 }
