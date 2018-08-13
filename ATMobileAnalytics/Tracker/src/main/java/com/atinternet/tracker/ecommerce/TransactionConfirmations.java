@@ -33,7 +33,7 @@ public class TransactionConfirmations {
     }
 
     public TransactionConfirmationEvent add() {
-        TransactionConfirmationEvent tce = new TransactionConfirmationEvent(tracker, "transaction.confirmation");
+        TransactionConfirmationEvent tce = new TransactionConfirmationEvent(tracker, "transaction.confirmation", tracker.Cart(), tracker.Orders().add(null, -1));
         tracker.Events().add(tce);
         return tce;
     }

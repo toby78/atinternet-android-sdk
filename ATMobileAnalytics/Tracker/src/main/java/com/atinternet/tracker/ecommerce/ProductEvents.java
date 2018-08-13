@@ -35,7 +35,7 @@ public class ProductEvents {
     }
 
     public ProductEvent add() {
-        ProductEvent pe = new ProductEvent(events, action);
+        ProductEvent pe = new ProductEvent(events, action, null);
         events.add(pe);
         return pe;
     }

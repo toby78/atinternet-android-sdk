@@ -23,12 +23,16 @@ SOFTWARE.
 package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.EventDataObject;
+import com.atinternet.tracker.Order;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Cart extends EventDataObject {
 
-    Cart() {
+    private com.atinternet.tracker.Cart stCart;
+    private Order stOrder;
+
+    Cart(com.atinternet.tracker.Cart stCart, Order stOrder) {
         super();
         /// STRING
         propertiesPrefixMap.put("id", "s");
@@ -41,5 +45,53 @@ public class Cart extends EventDataObject {
 
         /// LONG
         propertiesPrefixMap.put("quantity", "n");
+        this.stCart = stCart;
+        this.stOrder = stOrder;
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ?> m) {
+        super.putAll(m);
+        updateOrderAndCart();
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+        Object result = super.put(key, value);
+        updateOrderAndCart();
+        return result;
+    }
+
+    @Override
+    public void set(Map<String, Object> obj) {
+        super.set(obj);
+        updateOrderAndCart();
+    }
+
+    @Override
+    public boolean remove(Object key, Object value) {
+        boolean result = super.remove(key, value);
+        updateOrderAndCart();
+        return result;
+    }
+
+    @Override
+    public Object remove(Object key) {
+        Object result = super.remove(key);
+        updateOrderAndCart();
+        return result;
+    }
+
+    private void updateOrderAndCart() {
+        if (stCart != null) {
+            stCart.set(String.valueOf(get("s:id")));
+        }
+
+        if (stOrder != null) {
+            double turnoverTaxIncluded = Tool.parseDoubleFromString(String.valueOf(get("f:turnoverTaxIncluded"))),
+                    amountTaxFree = Tool.parseDoubleFromString(String.valueOf(get("f:turnoverTaxFree")));
+            stOrder.setTurnover(turnoverTaxIncluded)
+                    .Amount().set(amountTaxFree, turnoverTaxIncluded, turnoverTaxIncluded - amountTaxFree);
+        }
     }
 }

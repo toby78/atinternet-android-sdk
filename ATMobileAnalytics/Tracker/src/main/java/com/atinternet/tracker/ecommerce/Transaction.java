@@ -23,14 +23,60 @@ SOFTWARE.
 package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.EventDataObject;
+import com.atinternet.tracker.Order;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Transaction extends EventDataObject {
 
-    Transaction() {
+    private Order stOrder;
+
+    Transaction(Order stOrder) {
         super();
         /// STRING
         propertiesPrefixMap.put("id", "s");
+        this.stOrder = stOrder;
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ?> m) {
+        super.putAll(m);
+        updateOrder();
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+        Object result = super.put(key, value);
+        updateOrder();
+        return result;
+    }
+
+    @Override
+    public void set(Map<String, Object> obj) {
+        super.set(obj);
+        updateOrder();
+    }
+
+    @Override
+    public boolean remove(Object key, Object value) {
+        boolean result = super.remove(key, value);
+        updateOrder();
+        return result;
+    }
+
+    @Override
+    public Object remove(Object key) {
+        Object result = super.remove(key);
+        updateOrder();
+        return result;
+    }
+
+    private void updateOrder() {
+        if (stOrder != null) {
+            stOrder.setOrderId(String.valueOf(get("s:id")))
+                    .setStatus(3)
+                    .setConfirmationRequired(false)
+                    .setPaymentMethod(0);
+        }
     }
 }

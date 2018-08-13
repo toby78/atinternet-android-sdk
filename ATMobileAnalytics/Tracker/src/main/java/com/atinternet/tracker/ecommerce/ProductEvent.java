@@ -32,11 +32,11 @@ import java.util.Map;
 
 public class ProductEvent extends Event {
 
-    protected List<Product> products;
+    protected Products products;
 
-    ProductEvent(Events events, String action) {
+    ProductEvent(Events events, String action, com.atinternet.tracker.Cart stCart) {
         super(events, action);
-        products = new ArrayList<>();
+        products = new Products(stCart);
     }
 
     public List<Product> Products() {

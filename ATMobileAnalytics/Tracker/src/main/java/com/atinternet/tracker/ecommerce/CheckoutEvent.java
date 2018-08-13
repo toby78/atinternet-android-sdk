@@ -23,6 +23,7 @@ SOFTWARE.
 package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.Events;
+import com.atinternet.tracker.Order;
 
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,9 @@ public class CheckoutEvent extends CartEvent {
 
     protected Shipping shipping;
 
-    CheckoutEvent(Events events, String action) {
-        super(events, action);
-        shipping = new Shipping();
+    CheckoutEvent(Events events, String action, com.atinternet.tracker.Cart stCart, Order stOrder) {
+        super(events, action, stCart, stOrder);
+        shipping = new Shipping(stOrder);
     }
 
     public Shipping Shipping() {

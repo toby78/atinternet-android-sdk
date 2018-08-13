@@ -50,24 +50,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, Object> cartData = new HashMap<>();
         cartData.put("id", "cartID");
 
+        Map<String, Object> productData1 = new HashMap<>();
+        productData1.put("id", "1");
+        productData1.put("key", "value");
 
         Map<String, Object> productData2 = new HashMap<>();
         productData2.put("id", "2");
 
         Map<String, Object> productData3 = new HashMap<>();
         productData3.put("id", "3");
-        productData2.put("key", "value");
-
-        Map<String, Object> productData1 = new HashMap<>();
-        productData1.put("id", "1");
-        productData2.put("key", "value");
+        productData3.put("brand", "adadas");
+        productData3.put("key", "value");
 
 
         switch (v.getId()) {
             case R.id.displayProduct:
                 Product p1 = new Product(productData3);
-                p1.put("brand", "adadas");
-                p1.put("key", "value");
                 tracker.ECommerce().DisplayProducts().add().Products().add(p1);
                 tracker.ECommerce().DisplayProducts().add();
 
@@ -80,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.clickProduct:
                 Product p2 = new Product(productData3);
-                p2.put("brand", "adadas");
-                p2.put("key", "value");
                 tracker.ECommerce().ClickProducts().add().Products().add(p2);
                 tracker.ECommerce().ClickProducts().add();
 
@@ -94,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.displayPageProduct:
                 Product p3 = new Product(productData3);
-                p3.put("brand", "adadas");
-                p3.put("key", "value");
                 tracker.ECommerce().DisplayPageProducts().add().Products().add(p3);
                 tracker.ECommerce().DisplayPageProducts().add();
 
@@ -108,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.addProduct:
                 Product p4 = new Product(productData3);
-                p4.put("brand", "adadas");
-                p4.put("key", "value");
                 tracker.ECommerce().AddProducts().add().Products().add(p4);
                 tracker.ECommerce().AddProducts().add();
 
@@ -127,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.removeProduct:
                 Product p5 = new Product(productData3);
-                p5.put("brand", "adadas");
-                p5.put("key", "value");
                 tracker.ECommerce().RemoveProducts().add().Products().add(p5);
                 tracker.ECommerce().RemoveProducts().add();
 
@@ -146,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.displayCart:
                 Product p6 = new Product(productData3);
-                p6.put("brand", "adadas");
-                p6.put("key", "value");
                 tracker.ECommerce().DisplayCarts().add().Products().add(p6);
                 tracker.ECommerce().DisplayCarts().add();
 
@@ -165,8 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.updateCart:
                 Product p7 = new Product(productData3);
-                p7.put("brand", "adadas");
-                p7.put("key", "value");
                 tracker.ECommerce().UpdateCarts().add().Products().add(p7);
                 tracker.ECommerce().UpdateCarts().add();
 
@@ -184,8 +170,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.deliveryCheckout:
                 Product p8 = new Product(productData3);
-                p8.put("brand", "adadas");
-                p8.put("key", "value");
                 tracker.ECommerce().DeliveryCheckouts().add().Products().add(p8);
                 tracker.ECommerce().DeliveryCheckouts().add();
 
@@ -207,8 +191,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.paymentCheckout:
                 Product p9 = new Product(productData3);
-                p9.put("brand", "adadas");
-                p9.put("key", "value");
                 tracker.ECommerce().PaymentCheckouts().add().Products().add(p9);
                 tracker.ECommerce().PaymentCheckouts().add();
 
@@ -265,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tce.Transaction().put("id", "id");
                 tce.Transaction().put("key", "value");
 
-                tce.send();
+                tracker.dispatch();
                 break;
         }
     }

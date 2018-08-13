@@ -24,7 +24,6 @@ package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.EventDataObject;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Product extends EventDataObject {
@@ -57,6 +56,31 @@ public class Product extends EventDataObject {
         /// LONG
         propertiesPrefixMap.put("position", "n");
         propertiesPrefixMap.put("quantity", "n");
-        putAll(obj);
+        for (Entry<String, Object> entry : obj.entrySet()) {
+            super.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ?> m) {
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+        return null;
+    }
+
+    @Override
+    public void set(Map<String, Object> obj) {
+    }
+
+    @Override
+    public boolean remove(Object key, Object value) {
+        return false;
+    }
+
+    @Override
+    public Object remove(Object key) {
+        return null;
     }
 }

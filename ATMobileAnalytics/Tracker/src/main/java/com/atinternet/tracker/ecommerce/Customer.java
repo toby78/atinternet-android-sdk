@@ -23,13 +23,56 @@ SOFTWARE.
 package com.atinternet.tracker.ecommerce;
 
 import com.atinternet.tracker.EventDataObject;
+import com.atinternet.tracker.Order;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Customer extends EventDataObject {
 
-    Customer() {
+    private Order stOrder;
+
+    Customer(Order stOrder) {
         super();
         propertiesPrefixMap.put("new", "b");
+        this.stOrder = stOrder;
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ?> m) {
+        super.putAll(m);
+        updateOrder();
+    }
+
+    @Override
+    public Object put(String key, Object value) {
+        Object result = super.put(key, value);
+        updateOrder();
+        return result;
+    }
+
+    @Override
+    public void set(Map<String, Object> obj) {
+        super.set(obj);
+        updateOrder();
+    }
+
+    @Override
+    public boolean remove(Object key, Object value) {
+        boolean result = super.remove(key, value);
+        updateOrder();
+        return result;
+    }
+
+    @Override
+    public Object remove(Object key) {
+        Object result = super.remove(key);
+        updateOrder();
+        return result;
+    }
+
+    private void updateOrder() {
+        if (stOrder != null) {
+            stOrder.setNewCustomer(Boolean.parseBoolean(String.valueOf(get("b:new"))));
+        }
     }
 }

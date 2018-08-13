@@ -35,7 +35,7 @@ public class CheckoutEvents {
     }
 
     public CheckoutEvent add() {
-        CheckoutEvent ce = new CheckoutEvent(events, action);
+        CheckoutEvent ce = new CheckoutEvent(events, action, null, null);
         events.add(ce);
         return ce;
     }
